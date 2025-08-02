@@ -1,0 +1,38 @@
+# Use the Gazebo image as base
+FROM stud/stud-cp22:fastbot-ros2-gazebo
+
+# Change the default shell to Bash
+SHELL [ "/bin/bash" , "-c" ]
+
+# Environment
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO=humble
+
+# Install SLAM and Navigation2 necessary dependencies for cartographer-ros package
+RUN apt-get update && apt-get install -y \
+    ros-${ROS_DISTRO}-slam-toolbox \
+    ros-${ROS_DISTRO}-nav2-bringup \
+    ros-${ROS_DISTRO}-navigation2 \
+    ros-${ROS_DISTRO}-rviz2 \
+    ros-humble-cartographer \
+    ros-humble-cartographer-ros \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN source /opt/ros/humble/setup.bash
+
+# Create workspace if not already there
+WORKDIR /ros2_ws
+
+# Copy your navigation/SLAM package into the workspace
+COPY src/fastbot_ros2_docker/simulation/fastbot_slam /ros2_ws/src/fastbot_slam/
+
+# Build the Colcon workspace and ensure it's sourced
+RUN source /opt/ros/humble/setup.bash \
+ && cd /ros2_ws \
+ && colcon build
+
+RUN echo "source /ros2_ws/install/setup.bash" >> ~/.bashrc
+
+# Default command for testing (override with docker-compose or at runtime)
+# Source the built workspace and set the entrypoint to run the package
+ENTRYPOINT ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch fastbot_slam cartographer.launch.py"]
