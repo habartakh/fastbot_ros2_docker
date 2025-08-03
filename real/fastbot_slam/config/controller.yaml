@@ -69,7 +69,7 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: fastbot_odom
       robot_base_frame: fastbot_base_link
-      use_sim_time: True
+      use_sim_time: False
       rolling_window: true
       width: 1
       height: 1

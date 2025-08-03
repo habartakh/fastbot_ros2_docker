@@ -13,6 +13,7 @@ services:
       - ROBOT_NAME=fastbot
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=/var/lib/theconstruct.rrl/cyclonedds.xml
+      - ROS_DOMAIN_ID=1
     group_add:
       - "44"  # Video group GID
     volumes: 
@@ -25,4 +26,24 @@ services:
       - ./volumes/raspicam_camera_info.yaml:/root/.ros/camera_info/mmal_service_16.1.yaml
     entrypoint: /ros_entrypoint.sh
     command: ["/bringup.sh"]
+    restart: always
+
+  fastbot-ros2-slam-real:
+    image: fastbot-ros2-slam-real
+    build:
+      context: .
+      dockerfile: Dockerfile.fastbot-ros2-slam-real
+    container_name: fastbot-ros2-slam-real
+    network_mode: host
+    depends_on:
+      - fastbot-ros2-real
+    environment:
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - ROS_DOMAIN_ID=1
+      - ROBOT_NAME=fastbot
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    entrypoint: /ros_entrypoint.sh
+    command:  bash -c "source /opt/ros/humble/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch fastbot_slam cartographer.launch.py"
     restart: always
