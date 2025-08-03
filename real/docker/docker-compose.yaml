@@ -1,12 +1,15 @@
 name: fastbot_humble
 
 services:
-  fastbot-humble-container:
+  fastbot-ros2-real:
     image: theconstructai/fastbot:student
+    build:
+      context: .
+      dockerfile: Dockerfile.fastbot-ros2-real
     pull_policy: always
     privileged: true
     network_mode: host
-    container_name: fastbot-student-humble
+    container_name: fastbot-ros1-gazebo_1
     environment:
       - ROBOT_NAME=fastbot
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
