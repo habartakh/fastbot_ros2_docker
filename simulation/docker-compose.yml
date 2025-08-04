@@ -35,4 +35,23 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
     command:  bash -c "source /opt/ros/humble/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch fastbot_slam cartographer.launch.py"
 
+  fastbot-ros2-webapp:
+    image: stud/stud-cp22:fastbot-ros2-webapp
+    build:
+      context: ../../..
+      dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-webapp
+    container_name: fastbot-ros2-webapp
+    ports:
+      - "7000:80"      # For web app
+      - "9090:9090"      # For rosbridge websocket
+    network_mode: bridge
+    depends_on:
+      - fastbot-ros2-gazebo
+    environment:
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - ROS_DOMAIN_ID=1
+      - GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:/ros2_ws/src/
+    volumes:
+      - ~/ros2_ws/src/fastbot_ros2_docker/simulation/fastbot_webpage:/usr/share/nginx/html:ro
 
