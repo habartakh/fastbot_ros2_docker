@@ -45,5 +45,5 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     entrypoint: /ros_entrypoint.sh
-    command:  bash -c "source /opt/ros/humble/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch fastbot_slam cartographer.launch.py"
+    command:  bash -c "source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/setup.bash && ros2 launch fastbot_slam cartographer.launch.py"
     restart: always
