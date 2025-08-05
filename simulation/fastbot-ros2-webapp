@@ -7,11 +7,17 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Installing nginx
 RUN apt-get update \
     && apt-get install -y python3-pip  \
+    python3-colcon-common-extensions \
+    python3-setuptools \
+    python3-pytest \
+    python3-numpy \
+    ros-humble-web-video-server \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python deps for rosbridge_suite
 RUN pip install pymongo
 RUN pip install tornado
+RUN pip install pyquaternion
 
 # Copying the local my_webpage to the docker image
 COPY src/fastbot_ros2_docker/simulation/fastbot_webpage /webpage_ws/fastbot_webpage
@@ -21,6 +27,7 @@ COPY src/fastbot_ros2_docker/simulation/entrypoint.sh /webpage_ws/fastbot_webpag
 # Clone the ROS Bridge suite in order to communicate with nodes from webpage
 WORKDIR /ros2_ws/src
 RUN git clone -b humble https://github.com/RobotWebTools/rosbridge_suite.git
+# RUN git clone -b ros2 https://github.com/RobotWebTools/tf2_web_republisher.git 
 
 # Build the Colcon workspace and ensure it's sourced
 WORKDIR /ros2_ws
