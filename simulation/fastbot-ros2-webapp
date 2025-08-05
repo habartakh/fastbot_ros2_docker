@@ -1,5 +1,3 @@
-# How to create the docker image: docker build -t my_nginx:v0 .
-
 # Let's use "ubuntu:20.04" as the base of our image
 FROM stud/stud-cp22:fastbot-ros2-slam
 
@@ -8,26 +6,21 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Installing nginx
 RUN apt-get update \
-    && apt-get install -y nginx  \
-    python3-pip \
+    && apt-get install -y python3-pip  \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python deps for rosbridge_suite
 RUN pip install pymongo
 RUN pip install tornado
 
+# Copying the local my_webpage to the docker image
+COPY src/fastbot_ros2_docker/simulation/fastbot_webpage /webpage_ws/fastbot_webpage
 # Copying the local entrypoint.sh file to /entrypoint.sh in the docker image
-COPY src/fastbot_ros2_docker/simulation/entrypoint.sh /entrypoint.sh
-
-# Copying the local my_webpage to /var/www/html in the docker image
-COPY src/fastbot_ros2_docker/simulation/fastbot_webpage /var/www/html
+COPY src/fastbot_ros2_docker/simulation/entrypoint.sh /webpage_ws/fastbot_webpage/entrypoint.sh
 
 # Clone the ROS Bridge suite in order to communicate with nodes from webpage
 WORKDIR /ros2_ws/src
 RUN git clone -b humble https://github.com/RobotWebTools/rosbridge_suite.git
-
-# # Remove the ROS 1 packages that break the build
-# RUN rm -rf rosbridge_suite/rosbridge_library
 
 # Build the Colcon workspace and ensure it's sourced
 WORKDIR /ros2_ws
@@ -37,8 +30,10 @@ RUN source /opt/ros/humble/setup.bash \
 
 RUN echo "source /ros2_ws/install/setup.bash" >> ~/.bashrc
 
+WORKDIR /webpage_ws/fastbot_webpage/
+
 # /bin/bash is the command we want to execute when running a docker container
 ENTRYPOINT ["/bin/bash"]
 
 # We want /bin/bash to execute our /entrypoint.sh when container starts
-CMD ["/entrypoint.sh"]
+CMD ["/webpage_ws/fastbot_webpage/entrypoint.sh"]
