@@ -4,8 +4,8 @@ services:
   fastbot-ros2-real:
     image: fastbot-ros2-real
     build:
-      context: .
-      dockerfile: Dockerfile.fastbot-ros2-real
+      context: ../
+      dockerfile: docker/Dockerfile.fastbot-ros2-real
     privileged: true
     network_mode: host
     container_name: fastbot-ros2-real-container
@@ -32,7 +32,7 @@ services:
     image: fastbot-ros2-slam-real
     build:
       context: .
-      dockerfile: Dockerfile.fastbot-ros2-slam-real
+      dockerfile: docker/Dockerfile.fastbot-ros2-slam-real
     container_name: fastbot-ros2-slam-real
     network_mode: host
     depends_on:

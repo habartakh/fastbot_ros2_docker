@@ -19,8 +19,9 @@ RUN apt-get update && apt-get install -y \
 # Clone the repositories for the project
 WORKDIR /root/ros2_ws/src
 ARG CACHEBUST=1
-RUN git clone https://github.com/habartakh/fastbot_pkgs.git \
-    && git clone https://bitbucket.org/theconstructcore/lslidar_ros2_driver.git
+RUN git clone https://bitbucket.org/theconstructcore/lslidar_ros2_driver.git
+
+COPY fastbot/ /root/ros2_ws/src
 
 # Use /bin/bash for the next RUN command
 SHELL ["/bin/bash", "-c"]
