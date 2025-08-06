@@ -31,7 +31,7 @@ services:
   fastbot-ros2-slam-real:
     image: fastbot-ros2-slam-real
     build:
-      context: .
+      context: ../
       dockerfile: docker/Dockerfile.fastbot-ros2-slam-real
     container_name: fastbot-ros2-slam-real
     network_mode: host

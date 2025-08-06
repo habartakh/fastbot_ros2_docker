@@ -13,14 +13,14 @@ def generate_launch_description():
         'fastbot_slam'), 'rviz', 'nav.rviz')
 
     return LaunchDescription([
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            output='screen',
-            name='rviz_node',
-            parameters=[{'use_sim_time': False}],
-            arguments=['-d', rviz_config_dir]
-        ),
+     #   Node(
+     #       package='rviz2',
+     #       executable='rviz2',
+     #       output='screen',
+     #      name='rviz_node',
+     #      parameters=[{'use_sim_time': False}],
+     #      arguments=['-d', rviz_config_dir]
+     #  ),
 
         Node(
             package='cartographer_ros',
