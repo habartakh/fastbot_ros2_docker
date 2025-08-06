@@ -44,7 +44,11 @@ First start by installing docker:
 ```
  ./install_docker.sh
 ```
-Build the Docker images and start their containers by running: 
+Start by building the `fastbot-ros2-real` image first:
+```
+docker compose build fastbot-ros2-real
+```
+Then, run: 
 ```
 docker compose up
 ```
