@@ -23,6 +23,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN source /opt/ros/humble/setup.bash
 
+# Clone the repositories for the project
+WORKDIR /root/ros2_ws/src
+COPY fastbot_navigation/ /root/ros2_ws/src
+
 # Create workspace if not already there
 WORKDIR /root/ros2_ws
 
