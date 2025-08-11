@@ -35,8 +35,8 @@ services:
       dockerfile: docker/Dockerfile.fastbot-ros2-slam-real
     container_name: fastbot-ros2-slam-real
     network_mode: host
-    depends_on:
-      - fastbot-ros2-real
+    # depends_on:
+    #   - fastbot-ros2-real
     environment:
       - DISPLAY=${DISPLAY}
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

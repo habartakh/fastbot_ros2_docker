@@ -1,5 +1,5 @@
 # Use the Gazebo image as base
-FROM fastbot-ros2-real:latest
+FROM ros:humble-ros-core
 
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]
@@ -11,6 +11,11 @@ ENV ROS_DISTRO=humble
 # Install SLAM and Navigation2 necessary dependencies for cartographer-ros package
 RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \ 
+    ros-humble-tf2-ros \
+    ros-humble-tf2-geometry-msgs \
+    ros-humble-diagnostic-updater \
+    ros-humble-rmw-cyclonedds-cpp \
+    ros-humble-xacro \
     ros-${ROS_DISTRO}-slam-toolbox \
     ros-${ROS_DISTRO}-nav2-bringup \
     ros-${ROS_DISTRO}-navigation2 \
@@ -32,8 +37,8 @@ WORKDIR /root/ros2_ws
 
 # Build the Colcon workspace and ensure it's sourced
 RUN source /opt/ros/humble/setup.bash \
- && cd /root/ros2_ws \
- && colcon build
+    && cd /root/ros2_ws \
+    && colcon build
 
 # RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
