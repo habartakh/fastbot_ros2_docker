@@ -37,4 +37,4 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    scan_topic: /fastbot/scan
+    scan_topic: /scan
