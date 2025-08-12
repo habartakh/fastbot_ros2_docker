@@ -44,11 +44,7 @@ First start by installing docker:
 ```
  ./install_docker.sh
 ```
-Start by building the `fastbot-ros2-real` image first:
-```
-docker compose build fastbot-ros2-real
-```
-Then, run: 
+Then, build the images and launch the containers by running: 
 ```
 docker compose up
 ```
@@ -73,6 +69,10 @@ docker compose up -d
 In order to visualize the topics from an external computer, you should first set the ROS_DOMAIN_ID environment variable to the same value as the one in the containers:
 ```
 export ROS_DOMAIN_ID=1
+```
+Then, stop the ROS2 daemon in order to avoid having two instances of the daemon running: 
+```
+ros2 daemon stop
 ```
 Then, you can run: 
 ```
