@@ -1,5 +1,5 @@
 # Use the Gazebo image as base
-FROM stud/stud-cp22:fastbot-ros2-gazebo
+FROM habartakh/habartakh-cp22:fastbot-ros2-gazebo
 
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]

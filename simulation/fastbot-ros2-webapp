@@ -1,5 +1,5 @@
 # Let's use "ubuntu:20.04" as the base of our image
-FROM stud/stud-cp22:fastbot-ros2-slam
+FROM habartakh/habartakh-cp22:fastbot-ros2-slam
 
 # Exporting a variable to install pkgs without any interactive questions
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,6 +12,7 @@ RUN apt-get update \
     python3-pytest \
     python3-numpy \
     ros-humble-web-video-server \ 
+    ros-humble-ament-cmake-mypy \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python deps for rosbridge_suite
