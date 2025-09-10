@@ -3,9 +3,9 @@ version: '3.7'
 services:
   fastbot-ros2-gazebo:
     image: habartakh/habartakh-cp22:fastbot-ros2-gazebo
-    build:
-      context: ../../.. 
-      dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-gazebo
+    # build:
+    #   context: ../../.. 
+    #   dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-gazebo
     container_name: fastbot-ros2-gazebo
     network_mode: bridge
     environment:
@@ -19,9 +19,9 @@ services:
 
   fastbot-ros2-slam:
     image: habartakh/habartakh-cp22:fastbot-ros2-slam
-    build:
-      context: ../../..
-      dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-slam
+    # build:
+    #   context: ../../..
+    #   dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-slam
     container_name: fastbot-ros2-slam
     network_mode: bridge
     depends_on:
@@ -37,9 +37,9 @@ services:
 
   fastbot-ros2-webapp:
     image: habartakh/habartakh-cp22:fastbot-ros2-webapp
-    build:
-      context: ../../..
-      dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-webapp
+    # build:
+    #   context: ../../..
+    #   dockerfile: src/fastbot_ros2_docker/simulation/fastbot-ros2-webapp
     container_name: fastbot-ros2-webapp
     ports:
       - "7000:7000"      # For web app
