@@ -2,13 +2,13 @@ name: fastbot_humble
 
 services:
   fastbot-ros2-real:
-    image: fastbot-ros2-real
+    image: habartakh/habartakh-cp22:fastbot-ros2-real
     build:
       context: ../
       dockerfile: docker/Dockerfile.fastbot-ros2-real
     privileged: true
     network_mode: host
-    container_name: fastbot-ros2-real-container
+    container_name: fastbot-ros2-real
     environment:
       - ROBOT_NAME=fastbot
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
@@ -29,14 +29,14 @@ services:
     restart: always
 
   fastbot-ros2-slam-real:
-    image: fastbot-ros2-slam-real
+    image: habartakh/habartakh-cp22:fastbot-ros2-slam-real
     build:
       context: ../
       dockerfile: docker/Dockerfile.fastbot-ros2-slam-real
     container_name: fastbot-ros2-slam-real
     network_mode: host
     depends_on:
-      - fastbot-ros2-real
+      - habartakh/habartakh-cp22:fastbot-ros2-real
     environment:
       - DISPLAY=${DISPLAY}
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

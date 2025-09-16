@@ -1,5 +1,5 @@
 # Use the Gazebo image as base
-FROM ros:humble-ros-core
+FROM habartakh/habartakh-cp22:fastbot-ros2-real
 
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]
