@@ -11,12 +11,12 @@ ENV ROS_DISTRO=humble
 # Install SLAM and Navigation2 necessary dependencies for cartographer-ros package
 RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \ 
-    ros-humble-tf2-ros \
-    ros-humble-tf2-geometry-msgs \
-    ros-humble-diagnostic-updater \
-    ros-humble-rmw-cyclonedds-cpp \
-    ros-humble-xacro \
-    ros-humble-robot-state-publisher \
+    # ros-humble-tf2-ros \
+    # ros-humble-tf2-geometry-msgs \
+    # ros-humble-diagnostic-updater \
+    # ros-humble-rmw-cyclonedds-cpp \
+    # ros-humble-xacro \
+    # ros-humble-robot-state-publisher \
     ros-${ROS_DISTRO}-slam-toolbox \
     ros-${ROS_DISTRO}-nav2-bringup \
     ros-${ROS_DISTRO}-navigation2 \

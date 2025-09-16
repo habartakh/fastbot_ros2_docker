@@ -36,7 +36,7 @@ services:
     container_name: fastbot-ros2-slam-real
     network_mode: host
     depends_on:
-      - habartakh/habartakh-cp22:fastbot-ros2-real
+      - fastbot-ros2-real
     environment:
       - DISPLAY=${DISPLAY}
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
