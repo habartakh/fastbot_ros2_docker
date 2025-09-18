@@ -73,7 +73,7 @@ class MotorDriver(Node):
         self.motor_vels_pub_ = self.create_publisher(MotorVels, "motor_vels", 10)
         self.encoder_pub_ = self.create_publisher(EncoderVals, "encoder_vals", 10)
         self.odom_pub_ = self.create_publisher(Odometry, "odom", 10)
-        self.tf_broadcaster = self.TransformBroadcaster()
+        self.tf_broadcaster = TransformBroadcaster(self)
 
 
         # Timer callback to continuously publish odometry
