@@ -31,7 +31,7 @@ def generate_launch_description():
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename],
             remappings=[
-                #('/scan', '/fastbot/scan'),
+                ('/scan', '/fastbot/scan'),
                 ('/odom', '/fastbot/odom')]
         ),
 
