@@ -13,6 +13,8 @@ from geometry_msgs.msg import Twist
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import ReentrantCallbackGroup
 from serial_motor_msgs.msg import MotorVels, EncoderVals
+from tf2_ros import TransformBroadcaster
+from geometry_msgs.msg import TransformStamped
 
 
 class MotorDriver(Node):
@@ -71,6 +73,8 @@ class MotorDriver(Node):
         self.motor_vels_pub_ = self.create_publisher(MotorVels, "motor_vels", 10)
         self.encoder_pub_ = self.create_publisher(EncoderVals, "encoder_vals", 10)
         self.odom_pub_ = self.create_publisher(Odometry, "odom", 10)
+        self.tf_broadcaster = self.TransformBroadcaster()
+
 
         # Timer callback to continuously publish odometry
         self.create_timer(0.1, self._timer_callback, callback_group=self.callback_group)
@@ -276,6 +280,22 @@ class MotorDriver(Node):
 
         # Publish message
         self.odom_pub_.publish(odom_msg)
+
+        # Publish TF from odom to base_link 
+        # This is necessary for the navigation package!!
+        t = TransformStamped()
+        t.header.stamp = odom_msg.header.stamp
+        t.header.frame_id = self.args.robot_name_value + "_odom"
+        t.child_frame_id = self.args.robot_name_value + "_base_link"
+        t.transform.translation.x = self.x
+        t.transform.translation.y = self.y
+        t.transform.translation.z = 0.0
+        t.transform.rotation.x = quat[0]
+        t.transform.rotation.y = quat[1]
+        t.transform.rotation.z = quat[2]
+        t.transform.rotation.w = quat[3]
+
+        self.tf_broadcaster.sendTransform(t)
 
     def euler_to_quaternion(
         self, roll: float, pitch: float, yaw: float
