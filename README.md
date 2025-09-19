@@ -22,6 +22,10 @@ docker ps
 
 This should list the following containers: `fastbot-ros2-gazebo`, `fastbot-ros2-slam`and `fastbot-ros2-webapp`.
 
+**IMPORTANT**: Please note that sometimes, there maybe some lag during the map generation in the webpage. The map will be updated slowly after the robot starts moving.   
+
+If you experience any issue with the simulation within docker, please stop the containers and restart them. 
+
 ## Real Robot
 
 There are two Docker files inside the `real/docker/` folder:
@@ -40,15 +44,19 @@ Navigate to the following folder:
 ```
 cd fastbot_ros2_docker/real/docker
 ```
-First start by installing docker: 
+First, start by installing docker: 
 ```
  ./install_docker.sh
+```
+Start the docker daemon by running:
+```
+sudo systemctl start docker
 ```
 Then, build the images and launch the containers by running: 
 ```
 docker compose up
 ```
-*Please note that there is no '-' in the `docker compose` command. That is because a newer version of docker-compose was installed by the `install_docker.sh` script.*
+*Please note that there is no hyphen '-' in the `docker compose` command. That is because a newer version of docker-compose was installed by the `install_docker.sh` script.*
 
 You can verify that all the containers are started by running:
 ```
@@ -79,4 +87,7 @@ Then, you can run:
 ros2 topic list
 ```
 
-You can also **visualize the map** generated in **RViz2**. You can also use the following configuration file `fastbot_ros2_docker/real/fastbot_navigation/fastbot_slam/rviz/nav.rviz`.
+You can also **visualize the map** generated in **RViz2**. 
+
+
+It is possible to use the following configuration file `fastbot_ros2_docker/real/fastbot_navigation/fastbot_slam/rviz/nav.rviz`.
